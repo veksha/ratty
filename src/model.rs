@@ -120,10 +120,7 @@ pub fn spawn_cursor_model(
         Ok((source, ObjectSource::Stl(mesh))) => {
             info!("loaded cursor model from {source}");
             commands.entity(root).with_children(|parent| {
-                parent.spawn((
-                    Mesh3d(meshes.add(mesh)),
-                    MeshMaterial3d(material.clone()),
-                ));
+                parent.spawn((Mesh3d(meshes.add(mesh)), MeshMaterial3d(material.clone())));
             });
         }
         Err(error) => {
@@ -290,8 +287,9 @@ pub fn load_object_source_from_bytes_with_options(
     let payload_name = format!("payload:{display_name}");
 
     match format {
-        "stl" => load_stl_meshes_from_bytes(bytes)
-            .map(|mesh| (payload_name, ObjectSource::Stl(mesh))),
+        "stl" => {
+            load_stl_meshes_from_bytes(bytes).map(|mesh| (payload_name, ObjectSource::Stl(mesh)))
+        }
         "obj" => load_obj_meshes_from_bytes(display_name, bytes, options.normalize)
             .map(|meshes| (payload_name, ObjectSource::Obj(meshes))),
         "glb" | "gltf" => {

@@ -9,8 +9,7 @@ use vt100::Callbacks;
 
 use crate::kitty::{KittyOperation, KittyParserState, refresh_kitty_placeholder_anchors};
 use crate::model::{
-    ObjectLoadOptions, load_object_source_from_bytes_with_options,
-    load_object_source_with_options,
+    ObjectLoadOptions, load_object_source_from_bytes_with_options, load_object_source_with_options,
 };
 use crate::rgp::{
     RgpOperation, RgpPlacementStyle, RgpPlacementUpdate, RgpRegisterSource,
