@@ -97,6 +97,9 @@ impl AppConfig {
     fn resolve_relative_paths(&mut self, path: &Path) {
         let config_dir = path.parent().unwrap_or_else(|| Path::new("."));
         self.cursor.model.path = resolve_config_path(config_dir, &self.cursor.model.path);
+        if let Some(texture) = self.cursor.model.texture.as_mut() {
+            *texture = resolve_config_path(config_dir, texture);
+        }
         if let Some(program) = self.shell.program.as_mut() {
             *program = resolve_config_path(config_dir, program);
         }
@@ -430,6 +433,8 @@ pub struct CursorModelConfig {
     pub color: [u8; 3],
     /// Cursor asset path.
     pub path: PathBuf,
+    /// Optional base-color texture image applied to the cursor model.
+    pub texture: Option<PathBuf>,
 }
 
 impl Default for CursorModelConfig {
@@ -442,6 +447,7 @@ impl Default for CursorModelConfig {
             brightness: 1.0,
             color: [255, 255, 255],
             path: PathBuf::from("CairoSpinyMouse.obj"),
+            texture: None,
         }
     }
 }

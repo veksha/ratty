@@ -507,7 +507,14 @@ pub(crate) fn finish_terminal_model_load(mut params: ModelLoadParams) {
 
     if !model_load_state.loaded {
         if app_config.cursor.model.visible {
-            spawn_cursor_model(commands, meshes, materials, asset_server, app_config);
+            spawn_cursor_model(
+                commands,
+                meshes,
+                materials,
+                images,
+                asset_server,
+                app_config,
+            );
         }
         model_load_state.loaded = true;
     }
